@@ -3,6 +3,12 @@ import { createClient } from "@supabase/supabase-js";
 import { scrapeProduct } from "@/lib/firecrawl";
 import { sendPriceDropAlert } from "@/lib/email";
 
+export async function GET() {
+    return NextResponse.json({
+        message: "Price check endpoint is working. Use POST to trigger."
+    })
+}
+
 export async function POST(request) {
   try {
     const authHeader = request.headers.get("authorization");
@@ -35,6 +41,12 @@ export async function POST(request) {
     };
 
     for (const product of products) {
+      if (!product.url) {
+        console.error("Product URL is undefined for product:", product);
+        results.failed++;
+        continue;
+      }
+
       try {
         const productData = await scrapeProduct(product.url);
 
