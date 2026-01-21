@@ -19,7 +19,7 @@ export default async function Home() {
       icon: Rabbit,
       title: "Lightning Fast",
       description:
-        "Deal Drop extracts prices in seconds, handling JavaScript and dynamic content",
+        "Trackify extracts prices in seconds, handling JavaScript and dynamic content",
     },
     {
       icon: Shield,
@@ -41,8 +41,8 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-3">
             <Image
-              src="/deal-drop-logo.png"
-              alt="Deal Drop Logo"
+              src="/Trackify-logo.png"
+              alt="Trackify Logo"
               width={600}
               height={200}
               className="h-10 w-auto"
