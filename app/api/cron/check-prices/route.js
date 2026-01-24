@@ -4,9 +4,9 @@ import { scrapeProduct } from "@/lib/firecrawl";
 import { sendPriceDropAlert } from "@/lib/email";
 
 export async function GET() {
-    return NextResponse.json({
-        message: "Price check endpoint is working. Use POST to trigger."
-    })
+  return NextResponse.json({
+    message: "Price check endpoint is working. Use POST to trigger.",
+  });
 }
 
 export async function POST(request) {
@@ -21,7 +21,7 @@ export async function POST(request) {
     // Use service role to bypass RLS
     const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.SUPABASE_SERVICE_ROLE_KEY
+      process.env.SUPABASE_SERVICE_ROLE_KEY,
     );
 
     const { data: products, error: productsError } = await supabase
@@ -55,7 +55,10 @@ export async function POST(request) {
           continue;
         }
 
-        const newPrice = parseFloat(productData.currentPrice);
+        const newPrice = parseFloat(
+          productData.currentPrice.replace(/[^\d.]/g, ""),
+        );
+
         const oldPrice = parseFloat(product.current_price);
 
         await supabase
@@ -88,7 +91,7 @@ export async function POST(request) {
                 user.email,
                 product,
                 oldPrice,
-                newPrice
+                newPrice,
               );
 
               if (emailResult.success) {
