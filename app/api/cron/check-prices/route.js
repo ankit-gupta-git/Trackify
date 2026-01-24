@@ -115,9 +115,3 @@ export async function POST(request) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
-
-export async function GET() {
-  return NextResponse.json({
-    message: "Price check endpoint is working. Use POST to trigger.",
-  });
-}
